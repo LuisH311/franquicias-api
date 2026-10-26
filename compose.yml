@@ -1,0 +1,28 @@
+services:
+  mysql:
+    image: mysql:8.4
+    environment:
+      MYSQL_DATABASE: franquicias
+      MYSQL_USER: franquicias
+      MYSQL_PASSWORD: franquicias123
+      MYSQL_ROOT_PASSWORD: root123
+    volumes:
+      - datos:/var/lib/mysql
+    healthcheck:
+      test: ["CMD", "mysql", "-h", "127.0.0.1", "-ufranquicias", "-pfranquicias123", "franquicias", "-e", "SELECT 1"]
+      interval: 5s
+      timeout: 5s
+      retries: 30
+  api:
+    build: .
+    ports:
+      - "8080:8080"
+    environment:
+      DB_URL: jdbc:mysql://mysql:3306/franquicias
+      DB_USER: franquicias
+      DB_PASSWORD: franquicias123
+    depends_on:
+      mysql:
+        condition: service_healthy
+volumes:
+  datos:

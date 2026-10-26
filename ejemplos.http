@@ -1,0 +1,61 @@
+# Ejemplos de Peticiones
+
+### 1. Crear franquicia (201)
+POST http://localhost:8080/franquicias
+Content-Type: application/json
+
+{"nombre":"Caribe"}
+
+### 2. Crear sucursal en la franquicia 1 (201)
+POST http://localhost:8080/franquicias/1/sucursales
+Content-Type: application/json
+
+{"nombre":"Norte"}
+
+### 3. Crear Café en la sucursal 1 (201)
+POST http://localhost:8080/sucursales/1/productos
+Content-Type: application/json
+
+{"nombre":"Cafe","stock":10}
+
+### 4. Crear Pan en la sucursal 1 (201)
+POST http://localhost:8080/sucursales/1/productos
+Content-Type: application/json
+
+{"nombre":"Pan","stock":25}
+
+### 5. Mayor stock: debe devolver Pan con 25 (200)
+GET http://localhost:8080/franquicias/1/mayor-stock
+
+### 6. Stock de Café pasa a 30 (200)
+PUT http://localhost:8080/productos/1/stock
+Content-Type: application/json
+
+{"stock":30}
+
+### 7. Ahora el mayor debe ser Café con 30 (200)
+GET http://localhost:8080/franquicias/1/mayor-stock
+
+### 8. Eliminar Pan de la sucursal 1 (204, sin cuerpo)
+DELETE http://localhost:8080/sucursales/1/productos/2
+
+## PUT http://localhost:8080/franquicias/1
+Content-Type: application/json
+
+{
+  "nombre": "Caribe Premium"
+}
+
+##PUT http://localhost:8080/sucursales/1
+Content-Type: application/json
+
+{
+  "nombre": "Sucursal Centro"
+}
+
+PUT http://localhost:8080/productos/1
+Content-Type: application/json
+
+{
+  "nombre": "Cafe Premium"
+}
